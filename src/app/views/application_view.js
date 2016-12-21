@@ -29,6 +29,7 @@ const ApplicationView = Backbone.View.extend({
       this.trigger('change');
     } else if ( lastTurn ) {
       alert(lastTurn);
+      this.model.create(this.ticTacToe.getJson());
     }
 
     this.trigger('change');

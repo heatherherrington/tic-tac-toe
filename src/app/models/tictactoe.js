@@ -24,22 +24,26 @@ const TicTacToe = Backbone.Model.extend({
     };
 
     this.set('currentPlayer', sample());
+
+    this.json = {};
   },
 
   playTurn: function(prompt) {
     // A turn will:
     //   - know who the current player is
     var player = this.get('players')[this.get('currentPlayer')];
-    while (true) {
-      //   - prompt for placement
-      var placement = prompt;
-      //   - check that the placement is valid
-      //   - will return FALSE or valid placement position
-      if (this.isValidPlacement(placement)) {
-        //   - update the board with a valid placement and players marker
-        this.updateBoard(placement, player.get('marker'));
-        break;
-      }
+
+    //   - prompt for placement
+    var placement = prompt;
+    //   - check that the placement is valid
+    //     - will return FALSE or valid placement position
+    if (this.isValidPlacement(placement) && !this.hasWon() ) {
+
+      //   - update the board with a valid placement and players marker
+      this.updateBoard(placement, player.get('marker'));
+    } else {
+      //     - if FALSE, reprompt/reclick
+      return false;
     }
     //   - end the move
     this.endMove();
@@ -49,12 +53,13 @@ const TicTacToe = Backbone.Model.extend({
   },
 
   outputResult: function(player) {
+    var playerName = player.name;
     //   - check if has won or if tie and report information
     var result = "";
     if (this.hasWon() || this.get('turns') == 9) {
       result += "The Game is Over. ";
       if(this.hasWon()) {
-        result += player.name + " has won!";
+        result += playerName + " has won!";
       } else {
         result += "You have tied.";
       }
@@ -152,6 +157,38 @@ const TicTacToe = Backbone.Model.extend({
 
   changePlayers: function() {
     this.set('currentPlayer', ((this.get('currentPlayer') === 0) ? 1 : 0));
+  },
+
+  getJson: function() {
+
+    this.grid = this.get('board').get('grid');
+
+    this.jsonBoard = [].concat.apply([], this.grid);
+    // replace null
+    this.replaceNull(this.jsonBoard);
+
+    this.jsonPlayers = [
+    this.get('player1').get('name'), this.get('player2').get('name')
+        ];
+    this.jsonOutcome = (this.hasWon() ? this.get('players')[this.get('currentPlayer')].get('marker') : 'draw');
+    this.jsonPlayedAt = new Date(new Date().getTime());
+
+
+    this.json = {
+      "board": this.jsonBoard,
+      "players": this.jsonPlayers,
+      "outcome": this.jsonOutcome,
+      "played_at": this.jsonPlayedAt
+      };
+
+    return this.json;
+  },
+
+  replaceNull: function (arr) {
+    for (var i = 0, l = arr.length; i < l; i++) {
+        if (arr[i] === null) arr[i] = ' ';
+    }
+    return arr;
   }
 });
 
