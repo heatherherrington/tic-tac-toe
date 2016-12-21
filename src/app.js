@@ -1,11 +1,18 @@
+import $ from 'jquery';
+
 import ApplicationView from 'app/views/application_view';
-import TicTacToe from 'app/models/tictactoe';
+import Games from 'app/collections/games';
 
-var ticTacToe = new TicTacToe({
+$(document).ready(function() {
+  var games = new Games({
+  });
 
-});
+  games.fetch();
 
-var appView = new ApplicationView({
-  el: '#application',
-  model: ticTacToe
+  var appView = new ApplicationView({
+    el: '#application',
+    model: games
+  });
+
+  appView.render();
 });

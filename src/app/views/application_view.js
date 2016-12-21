@@ -10,29 +10,27 @@ import TicTacToe from 'app/models/tictactoe';
 
 const ApplicationView = Backbone.View.extend({
   initialize: function() {
-    this.players_hash = [{
-      name: "Sarah",
-      marker: "X",
-    },
-    {
-      name: "Heather",
-      marker: "O",
-    }];
 
-    this.players = this.model.get('players');
-    this.board = this.model.get('board');
+    this.ticTacToe = this.model.game;
+
+    this.board = this.ticTacToe.get('board');
+    this.players = this.ticTacToe.get('players');
+
     this.listenTo(this, 'change', this.render);
-    this.render();
   },
 
-  events: {  },
-
   playTurn: function(marker) {
-    var lastTurn = this.model.playTurn(marker.position);
-    if (lastTurn) {
+    var isPlayable = this.ticTacToe.isValidPlacement(marker.position);
+    var lastTurn = this.ticTacToe.playTurn(marker.position);
+
+    if ( !isPlayable ) {
+      alert("Invalid move! Please try again");
+    } else if ( isPlayable && !lastTurn ) {
+      this.trigger('change');
+    } else if ( lastTurn ) {
       alert(lastTurn);
-      this.initialize();
     }
+
     this.trigger('change');
   },
 
@@ -40,7 +38,7 @@ const ApplicationView = Backbone.View.extend({
     const playerView = new PlayerView({
       players: this.players,
       el: this.$('#players'),
-      currentPlayer: this.model.get('currentPlayer')
+      currentPlayer: this.ticTacToe.get('currentPlayer')
     });
 
     const boardView = new BoardView({
