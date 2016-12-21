@@ -5,9 +5,7 @@ const Player = Backbone.Model.extend({
   initialize: function(options) {
     this.name = options.name;
     this.marker = options.marker;
-
   }
-
 });
 
 module.exports = Player;

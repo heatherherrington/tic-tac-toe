@@ -17,22 +17,16 @@ const SquareView = Backbone.View.extend({
   },
 
   onClick: function(e) {
-    console.log(">>> BREADCRUMBS: select click");
-
     this.trigger('select', this);
 
-    // We return false to tell jQuery not to run any more event handlers.
-
+    // Return false to tell jQuery not to run any more event handlers.
     return false;
   },
-
-
 
   render: function() {
     this.$el.append(this.template({ marker: this.model })).addClass('column');
     return this;
   }
-
 });
 
 export default SquareView;

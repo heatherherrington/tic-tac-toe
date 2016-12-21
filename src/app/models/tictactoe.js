@@ -12,20 +12,10 @@ const TicTacToe = Backbone.Model.extend({
     turns: 0
   },
 
-  // url: 'https://safe-mesa-21103.herokuapp.com/api/v1',
-
-  // parse: function(data) {
-  //   return data.tasks;
-  // },
-
   initialize: function(options) {
-
     var playersHash = [this.get('player1'), this.get('player2')];
-
     this.set('players', playersHash);
-
     this.set('board', new Board());
-
     this.currentPlayer = 0;
 
     var sample =  function(array = [0,1]) {
@@ -34,57 +24,42 @@ const TicTacToe = Backbone.Model.extend({
     };
 
     this.set('currentPlayer', sample());
-
-
   },
-
 
   playTurn: function(prompt) {
     // A turn will:
-
     //   - know who the current player is
-
     var player = this.get('players')[this.get('currentPlayer')];
-    // console.log(player.name);
-
+    while (true) {
       //   - prompt for placement
       var placement = prompt;
-
       //   - check that the placement is valid
-      //     - will return FALSE or valid placement position
-      if (this.isValidPlacement(placement) && !this.hasWon() ) {
-
+      //   - will return FALSE or valid placement position
+      if (this.isValidPlacement(placement)) {
         //   - update the board with a valid placement and players marker
         this.updateBoard(placement, player.get('marker'));
-      } else {
-        //     - if FALSE, reprompt/reclick
-        return false;
+        break;
       }
-
-    // console.log(this.get('board').get('grid'));
+    }
     //   - end the move
     this.endMove();
 
-    // if outputResult is FALSE, the game continues.  Otherwise, we return a string of the result of the game.
+    // if outputResult is FALSE, the game continues. Otherwise, we return a string of the result of the game.
     return this.outputResult(player);
   },
 
   outputResult: function(player) {
-
-    var playerName = player.name;
     //   - check if has won or if tie and report information
-
     var result = "";
     if (this.hasWon() || this.get('turns') == 9) {
       result += "The Game is Over. ";
       if(this.hasWon()) {
-        result += playerName + " has won!";
+        result += player.name + " has won!";
       } else {
         result += "You have tied.";
       }
       return result;
     }
-
     return false;
   },
 
@@ -107,7 +82,6 @@ const TicTacToe = Backbone.Model.extend({
     } else {
       return false;
     }
-
   },
 
   updateBoard: function(boardPosition, marker) {
@@ -131,7 +105,6 @@ const TicTacToe = Backbone.Model.extend({
     //   - increment the turns counter by 1
     //   - check if the game has been won
     //   - switch current player
-
     this.addTurn();
     if (this.get('turns') >= 5 && !this.hasWon()) {
       // only change players if hasWon is false after 5 turns
@@ -140,7 +113,6 @@ const TicTacToe = Backbone.Model.extend({
       // for the first 4 turns, always changePlayers because there is no chance of victory
       this.changePlayers();
     }
-
   },
 
   addTurn: function() {
@@ -175,13 +147,11 @@ const TicTacToe = Backbone.Model.extend({
     if(grid[0][0] == grid[1][1] && grid[0][0] == grid[2][2] && grid[0][0] !== null){
       return true;
     }
-
     return false;
   },
 
   changePlayers: function() {
     this.set('currentPlayer', ((this.get('currentPlayer') === 0) ? 1 : 0));
-
   }
 });
 

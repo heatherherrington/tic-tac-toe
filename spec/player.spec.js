@@ -19,7 +19,5 @@ describe('Player', function() {
       expect(testPlayerX.get('marker')).toEqual("X");
       expect(testPlayerO.get('marker')).toEqual("O");
     });
-
   });
-
 });

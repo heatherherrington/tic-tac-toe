@@ -1,52 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Tic-Tac-Toe</title>
-  <meta charset="utf-8">
-  <link href="https://fonts.googleapis.com/css?family=Walter+Turncoat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css">
-  <link rel="stylesheet" href="styles/index.css">
-</head>
-<body>
+  <head>
+    <title>Tic-Tac-Toe</title>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Walter+Turncoat" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css">
+    <link rel="stylesheet" href="styles/index.css">
+  </head>
+  <body>
+    <div id="application">
+      <main>
+        <h1> Tic-Tac-Toe DeathMatch!  </h1>
+        <div id="current-player"></div>
 
-  <div id="application">
+        <section id="ttt-board">
+          <ul id="board-squares"></ul>
+        </section>
+      </main>
 
-    <main>
-      <h1> Tic-Tac-Toe DeathMatch!  </h1>
-      <div id="current-player"></div>
+      <section id="players"></section>
 
-      <section id="ttt-board">
-        <ul id="board-squares"></ul>
+      <section>
+        <h3>Throwback Version: Get paper and pen</h3>
       </section>
+    </div>
+    <!-- #application end-->
 
-    </main>
+    <!-- Underscore Templates -->
 
-    <section id="players">
+      <!-- Player -->
+    <script type="text/template" id="tmpl-player">
+        <h2><%- name + ": " + marker %>  </h2>
+    </script>
 
-    </section>
+      <!-- Square -->
+    <script type="text/template" id="tmpl-board-square">
+      <li class="board-square">
+        <h3><%- marker %></h3>
+      </li>
+    </script>
 
+    <script src="/app.bundle.js" charset="utf-8"></script>
 
-
-  </div>
-  <!-- #application end-->
-
-
-  <!-- Underscore Templates -->
-
-    <!-- Player -->
-  <script type="text/template" id="tmpl-player">
-      <h2><%- name + ": " + marker %>  </h2>
-
-  </script>
-
-    <!-- Square -->
-  <script type="text/template" id="tmpl-board-square">
-    <li class="board-square">
-      <h3><%- marker %></h3>
-    </li>
-  </script>
-
-  <script src="/app.bundle.js" charset="utf-8"></script>
-
-</body>
+  </body>
 </html>

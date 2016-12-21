@@ -17,7 +17,6 @@ const Board = Backbone.Model.extend({
         [null, null, null]
       ]);
     }
-
 });
 
 module.exports = Board;

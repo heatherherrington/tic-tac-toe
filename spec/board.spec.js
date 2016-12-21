@@ -13,7 +13,6 @@ describe('Board', function() {
     it('should have a grid', function() {
       expect(testBoard.get('grid')).toBeDefined();
     });
-
   });
 
   describe('grid', function() {
@@ -48,8 +47,5 @@ describe('Board', function() {
         });
       });
     });
-
-
-
   });
 });

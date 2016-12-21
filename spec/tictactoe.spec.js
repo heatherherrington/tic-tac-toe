@@ -16,7 +16,6 @@ describe('TicTacToe', function() {
       testTicTacToe.destroy();
     });
 
-
   describe('TicTacToe', function() {
     it('should be defined', function() {
       expect(testTicTacToe).toBeDefined();
@@ -34,7 +33,6 @@ describe('TicTacToe', function() {
     it('should have turns', function() {
       expect(testTicTacToe.get('turns')).toBeDefined();
     });
-
   });
 
   describe('playTurn and outputResult', function() {
@@ -42,7 +40,6 @@ describe('TicTacToe', function() {
 
     var tieTicTacToe = new TicTacToe();
     var winTicTacToe = new TicTacToe();
-
 
     it('should return FALSE when the game has not ended', function() {
       expect(playTicTacToe.playTurn([0,0])).toBeFalsy();
@@ -71,7 +68,6 @@ describe('TicTacToe', function() {
 
       expect(winTicTacToe.playTurn([2,2])).toEqual("The Game is Over. " + winnerName + " has won!" );
     });
-
   });
 
   describe('isValidPlacement', function() {
@@ -99,7 +95,6 @@ describe('TicTacToe', function() {
     it('should return true if the placement on the board is not occupied', function() {
       expect(testTicTacToe.isValidPlacement([0, 1])).toBeTruthy();
     });
-
   });
 
   describe('updateBoard', function() {
@@ -118,9 +113,7 @@ describe('TicTacToe', function() {
       var boardValueUpdate = testTicTacToe.get('board').get('grid')[row][column];
 
       expect(boardValueUpdate).toEqual("X");
-
     });
-
   });
 
   describe('endMove', function() {
@@ -133,7 +126,6 @@ describe('TicTacToe', function() {
 
       expect(testTicTacToe.get('turns')).toEqual(gameTurns + 1);
       expect(testTicTacToe.get('currentPlayer')).not.toEqual(originalPlayer);
-
     });
 
     it('should increment the games turns by 1 AND change the current player when turns are equal to or more than 5 and no one has won', function() {
@@ -156,7 +148,6 @@ describe('TicTacToe', function() {
 
       expect(turnTicTacToe.get('turns')).toEqual(gameTurns2 + 1);
       expect(turnTicTacToe.get('currentPlayer')).not.toEqual(originalPlayer2);
-
     });
 
     it('should increment the games turns by 1 AND NOT change the current player when turns are equal to or more than 5 AND someone has won', function() {
@@ -178,9 +169,7 @@ describe('TicTacToe', function() {
 
       expect(wonTicTacToe.get('turns')).toEqual(gameTurns + 1);
       expect(wonTicTacToe.get('currentPlayer')).toEqual(originalPlayer);
-
     });
-
   });
 
   describe('addTurn', function() {
@@ -192,7 +181,6 @@ describe('TicTacToe', function() {
 
       expect(testTicTacToe.get('turns')).toEqual(gameTurns + 1);
     });
-
   });
 
   describe('hasWon', function() {
@@ -264,7 +252,6 @@ describe('TicTacToe', function() {
       diagonalTopTicTacToe.get('board').set('grid', diagonalTopGrid);
       expect(diagonalTopTicTacToe.hasWon()).toBeTruthy();
     });
-
   });
 
   describe('changePlayers', function() {
@@ -277,10 +264,6 @@ describe('TicTacToe', function() {
 
       testTicTacToe.changePlayers();
       expect(testTicTacToe.get('currentPlayer')).toEqual(originalPlayer);
-
-
     });
-
   });
-
 });
